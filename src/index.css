@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar{
+    width:250px;
+    height: 100rex;
+    background: blueviolet;
+    float: left;
+}
+.sidebar>h2{
+    font-size: 1.6rem;
+    color: black;
+    font-weight: 500;
+    font-style: italic;
+}
