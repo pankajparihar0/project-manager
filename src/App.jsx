@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import Todo from "./componenrt/Todo";
+import Input from "./componenrt/Input";
 
 function App() {
-  const [todo,setTodo] = useState([]);
-  const[curruntTodo,setCurrentTodo] = useState(0);
+  const [todo,setTodo] = useState(JSON.parse(localStorage.getItem('todo'))||[]);
+  const [input,setinput] = useState(false);
+  const[curruntTodo,setCurrentTodo] = useState(null);
   function handleChange(e){
     setCurrentTodo(e.currentTarget.id)
   }
+  useEffect(()=>{
+    localStorage.setItem('todo',JSON.stringify(todo));
+  },[todo])
   return (
     <>
-    <Header todos={todo} updatecurrent={handleChange}  addTodo={setTodo} />
-    <Todo todos={todo} current={curruntTodo} todo={(todo)&&todo[curruntTodo]} addTodo={setTodo}/>
+    <Header input={setinput} todos={todo} current={curruntTodo} updatecurrent={handleChange}  addTodo={setTodo} />
+    {!input&&<Todo todos={todo} updateCurrent={setCurrentTodo} current={curruntTodo} todo={(todo)&&todo[curruntTodo]} addTodo={setTodo}/>}
+    {input &&<Input addTodo={setTodo} input={setinput} />}
     </>
   );
 }

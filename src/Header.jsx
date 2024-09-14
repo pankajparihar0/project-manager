@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 
-function Header({todos,addTodo,updatecurrent}) {
+function Header({todos,addTodo,updatecurrent,current,input}) {
     const [add,setAdd] = useState(false);
   return (
-    <div className='sidebar'>
-      <h2>My Todo List</h2><span><button onClick={()=>setAdd(true)}>+</button></span><hr></hr>
+    <div className='sidebar p-3'>
+      <h2>My Projects</h2>
+      <button className='active p-3 m-2' onClick={()=>input(true)}>Add Project</button>
       <ol>
         {todos.map((todo,index)=>(
-            <li key={index}><button id={index} onClick={(e)=>updatecurrent(e)}> <h2>{todo.title}</h2> </button></li>
+            <li key={index}><button  className = {`${(index==current)?'active':undefined} p-3`} id={index} onClick={(e)=>{updatecurrent(e);input(false)}}> <h2>{todo.title}</h2> </button></li>
         ))}
       </ol>
       {add && <form >
